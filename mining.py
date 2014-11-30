@@ -107,4 +107,5 @@ def read_json_from_file(file_name):
 
     return json.loads(file_contents)
 """
-
+"""read_stock_data("GOOG","data\GOOG.json")
+print(six_worst_months())"""
