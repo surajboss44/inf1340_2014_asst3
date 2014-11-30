@@ -17,8 +17,8 @@ from operator import itemgetter
 
 global stock_year_list
 stock_year_list = []
+global final_list
 final_list = []
-
 
 def read_stock_data(stock_file_name):
     """
@@ -33,9 +33,10 @@ def read_stock_data(stock_file_name):
         try:
             global stock_records
             stock_records = json.loads(stock_file_content)
-            print(calculate_stock_price(stock_records))
-            print(six_worst_months())
-            print(six_best_months())
+            calculate_stock_price(stock_records)
+            #return(calculate_stock_price(stock_records))
+            #return(six_worst_months())
+            #return(six_best_months())
             # print(stock_records)
             #print(stock_records[0])
         except ValueError:
@@ -71,7 +72,7 @@ def calculate_stock_price(input_stock_records):
             stock_year_list.append(temp_item)
     for date_item in stock_year_list:
         average = calculate_average_for_a_month(input_stock_records, date_item)
-        monthly_stock_average = (date_item, average)  # Tuple for storing monthly average stock price
+        monthly_stock_average = (date_item, round(average,2))  # Tuple for storing monthly average stock price
         final_list.append(monthly_stock_average)  # List for storing average stock price of all months
     #print("final_list "+str(final_list))
     return final_list
@@ -125,3 +126,5 @@ def read_json_from_file(file_name):
 """
 
 read_stock_data("data\GOOG.json")
+print(six_best_months())
+print(six_worst_months())
