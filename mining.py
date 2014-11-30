@@ -16,15 +16,16 @@ import datetime
 from operator import itemgetter
 
 #global stock_year_list
-#stock_year_list = []
+stock_year_list = []
 #global final_list
-#final_list = []
-
+final_list = []
+six_best_months_data_sorted = []
+six_worst_months_data_sorted = []
 def read_stock_data(stock, stock_file_name):
     global stock_year_list
-    stock_year_list = []
+    #stock_year_list = []
     global final_list
-    final_list = []
+    #final_list = []
     """
 
     :param stock_file_name:
@@ -53,6 +54,7 @@ def calculate_stock_price(input_stock_records):
     :param input_stock_records:
     :return:
     """
+    global final_list
     stock_year_list_with_duplicates = []
 
     for each_stock_record in input_stock_records:
@@ -89,6 +91,8 @@ def calculate_average_for_a_month(input_stock_records, month_val):
 
 
 def six_worst_months():
+    global final_list
+    global six_worst_months_data
     six_worst_months_data = sorted(final_list, key=itemgetter(1))
     return six_worst_months_data[0:6]
 
@@ -99,7 +103,8 @@ def six_best_months():
 
     :return:
     """
-
+    global final_list
+    global six_best_months_data_sorted
     six_best_months_data_sorted = sorted(final_list, reverse=True, key=itemgetter(1))
     return six_best_months_data_sorted[0:6]
 
@@ -111,6 +116,17 @@ def read_json_from_file(file_name):
 
     return json.loads(file_contents)
 """
-
+"""
 read_stock_data("GOOG","data\GOOG.json")
 print(six_worst_months())
+"""
+
+"""
+def test_goog():
+    #global final_list
+    read_stock_data("GOOG", "data/GOOG.json")
+    print(six_best_months())
+    #assert six_best_months() == [('2007-12', 693.76), ('2007-11', 676.55), ('2007-10', 637.38), ('2008-01', 599.42), ('2008-05', 576.29), ('2008-06', 555.34)]
+    assert six_worst_months() == [('2004-08', 104.66), ('2004-09', 116.38), ('2004-10', 164.52), ('2004-11', 177.09), ('2004-12', 181.01), ('2005-03', 181.18)]
+test_goog()
+"""

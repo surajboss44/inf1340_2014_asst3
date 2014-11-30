@@ -16,7 +16,6 @@ from mining import *
 
 def test_goog():
     read_stock_data("GOOG","data\GOOG.json")
-    print()
     print(six_best_months())
     print(six_worst_months())
     assert six_best_months() == [('2007-12', 693.76), ('2007-11', 676.55), ('2007-10', 637.38), ('2008-01', 599.42), ('2008-05', 576.29), ('2008-06', 555.34)]
