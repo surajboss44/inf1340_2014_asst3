@@ -89,8 +89,7 @@ def calculate_average_for_a_month(input_stock_records, month_val):
             daily_volume = int(each_stock_record["Volume"])
             monthly_sales += daily_total_sales
             monthly_volume += daily_volume
-            average_monthly_price = monthly_sales / monthly_volume
-    return average_monthly_price
+    return monthly_sales / monthly_volume
 
 
 def six_worst_months():
