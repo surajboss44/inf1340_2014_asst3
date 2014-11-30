@@ -15,12 +15,16 @@ import json
 import datetime
 from operator import itemgetter
 
-global stock_year_list
-stock_year_list = []
-global final_list
-final_list = []
+#global stock_year_list
+#stock_year_list = []
+#global final_list
+#final_list = []
 
 def read_stock_data(stock, stock_file_name):
+    global stock_year_list
+    stock_year_list = []
+    global final_list
+    final_list = []
     """
 
     :param stock_file_name:
@@ -107,5 +111,6 @@ def read_json_from_file(file_name):
 
     return json.loads(file_contents)
 """
-"""read_stock_data("GOOG","data\GOOG.json")
-print(six_worst_months())"""
+
+read_stock_data("GOOG","data\GOOG.json")
+print(six_worst_months())
