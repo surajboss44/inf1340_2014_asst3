@@ -21,6 +21,8 @@ stock_year_list = []
 final_list = []
 six_best_months_data_sorted = []
 six_worst_months_data_sorted = []
+
+
 def read_stock_data(stock, stock_file_name):
     global stock_year_list
     #stock_year_list = []
@@ -39,6 +41,7 @@ def read_stock_data(stock, stock_file_name):
             global stock_records
             stock_records = json.loads(stock_file_content)
             calculate_stock_price(stock_records)
+            print(final_list)
         except ValueError:
             return "No values in the JSON file"
     except FileNotFoundError:
