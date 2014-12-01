@@ -2,13 +2,7 @@
 
 """ Docstring """
 
-__author__ = 'Susan Sim'
-__email__ = "ses@drsusansim.org"
-
-__copyright__ = "2014 Susan Sim"
-__license__ = "MIT License"
-
-__status__ = "Prototype"
+__author__ = 'Sam Novak and Suraj Narayanan'
 
 # imports one per line
 import pytest
@@ -33,8 +27,8 @@ def test_tse():
     assert six_worst_months() == [('2009-03', 1.74), ('2008-11', 2.08), ('2008-12', 2.25), ('2009-02', 2.41),
                                   ('2009-04', 2.75), ('2009-01', 3.14)]
 
-#
-# def test_no_file():
+
+# def test_no_file_found():
 #     """
 #     Tests the result if file name is not specified.
 #     """
@@ -47,4 +41,4 @@ def test_tse():
 #     Tests the result if stock name is not specified.
 #     """
 #     with pytest.raises(ValueError):
-#         read_stock_data("", "data/GOOG.json")
+#         read_stock_data("GOOG", "data/empty.json")
