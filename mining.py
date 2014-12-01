@@ -15,9 +15,7 @@ import json
 import datetime
 from operator import itemgetter
 
-#global stock_year_list
 stock_year_list = []
-#global final_list
 final_list = []
 six_best_months_data_sorted = []
 six_worst_months_data_sorted = []
@@ -25,9 +23,8 @@ six_worst_months_data_sorted = []
 
 def read_stock_data(stock, stock_file_name):
     global stock_year_list
-    #stock_year_list = []
     global final_list
-    #final_list = []
+    clear_globals()
     """
 
     :param stock_file_name:
@@ -49,6 +46,15 @@ def read_stock_data(stock, stock_file_name):
 
     except FileNotFoundError:
         return "JSON file not found"
+
+
+def clear_globals():
+    """
+    A function to reset global variables to any json file being passed
+    """
+    global stock_year_list
+    global final_list
+    stock_year_list, final_list = [], []
 
 
 def calculate_stock_price(input_stock_records):
@@ -89,7 +95,10 @@ def calculate_average_for_a_month(input_stock_records, month_val):
             daily_volume = int(each_stock_record["Volume"])
             monthly_sales += daily_total_sales
             monthly_volume += daily_volume
-    return monthly_sales / monthly_volume
+    if monthly_volume == 0:
+        return 0
+    else:
+        return monthly_sales / monthly_volume
 
 
 def six_worst_months():
@@ -101,8 +110,6 @@ def six_worst_months():
 
 def six_best_months():
     """
-
-
     :return:
     """
     global final_list
@@ -117,18 +124,7 @@ def read_json_from_file(file_name):
         file_contents = file_handle.read()
 
     return json.loads(file_contents)
-"""
-"""
+
 read_stock_data("GOOG","data\GOOG.json")
 print(six_worst_months())
-"""
-
-"""
-def test_goog():
-    #global final_list
-    read_stock_data("GOOG", "data/GOOG.json")
-    print(six_best_months())
-    #assert six_best_months() == [('2007-12', 693.76), ('2007-11', 676.55), ('2007-10', 637.38), ('2008-01', 599.42), ('2008-05', 576.29), ('2008-06', 555.34)]
-    assert six_worst_months() == [('2004-08', 104.66), ('2004-09', 116.38), ('2004-10', 164.52), ('2004-11', 177.09), ('2004-12', 181.01), ('2005-03', 181.18)]
-test_goog()
 """
