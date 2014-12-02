@@ -26,18 +26,16 @@ def read_stock_data(stock, stock_file_name):
              to process stock data
     """
 
-    global stock_year_list
-    global final_list
+    global stock_year_list, final_list, stock_file_content, stock_records
+
     clear_globals()
 
     if stock == "":
         raise ValueError
     try:
         with open(stock_file_name, "r") as file_reader:
-            global stock_file_content
             stock_file_content = file_reader.read()
         try:
-            global stock_records
             stock_records = json.loads(stock_file_content)
             calculate_stock_price(stock_records)
         except ValueError:
@@ -51,8 +49,7 @@ def clear_globals():
     """
     A function to reset global variables to any json file being passed
     """
-    global stock_year_list
-    global final_list
+    global stock_year_list, final_list
     stock_year_list, final_list = [], []
 
 
@@ -65,14 +62,14 @@ def calculate_stock_price(input_stock_records):
     """
 
     global final_list
-    stock_year_list_with_duplicates = []
+    stock_year_list_with_temp = []
 
-    for each_stock_record in input_stock_records:
+    for each_stock_record in input_stock_records:  # Create list of all date items from file
         stock_year_month = each_stock_record["Date"][0:7]
-        stock_year_list_with_duplicates.append(stock_year_month)
+        stock_year_list_with_temp.append(stock_year_month)
 
-    for temp_item in stock_year_list_with_duplicates:
-        if temp_item not in stock_year_list:  # Removing duplicate occurrence of YYYY-MM
+    for temp_item in stock_year_list_with_temp:
+        if temp_item not in stock_year_list:  # Add distinct instances of each occurrence of date item to list
             stock_year_list.append(temp_item)
 
     for date_item in stock_year_list:
@@ -91,7 +88,7 @@ def calculate_average_for_a_month(input_stock_records, month_val):
 
     :param input_stock_records: Stock record data
     :param month_val: month being evaluated
-    :return: list of tuples containing year, month, and average stock price
+    :return: month's average stock price
     """
     monthly_sales = 0
     monthly_volume = 0
@@ -109,33 +106,22 @@ def calculate_average_for_a_month(input_stock_records, month_val):
 
 
 def six_worst_months():
-    global final_list
-    global six_worst_months_data
+    """
+    Sorts and slice predefined global list 'final_list' to output six worst months
+
+    :return: list of tuples containing year, month, and 6 worst monthly average stock price
+    """
+    global final_list, six_worst_months_data
     six_worst_months_data = sorted(final_list, key=itemgetter(1))
-    # if len(six_worst_months_data_sorted) < 6:
-    #     raise ValueError("Less than six months data in file")
     return six_worst_months_data[0:6]
 
 
 def six_best_months():
     """
-    :return:
+    Sorts and slice predefined global list 'final_list' to output six best months
+
+    :return: list of tuples containing year, month, and 6 best monthly average stock price
     """
-    global final_list
-    global six_best_months_data_sorted
+    global final_list, six_best_months_data_sorted
     six_best_months_data_sorted = sorted(final_list, reverse=True, key=itemgetter(1))
-    # if len(six_best_months_data_sorted) < 6:
-    #     raise ValueError("Less than six months data in file")
     return six_best_months_data_sorted[0:6]
-
-
-"""
-def read_json_from_file(file_name):
-    with open(file_name) as file_handle:
-        file_contents = file_handle.read()
-
-    return json.loads(file_contents)
-"""
-#print(read_stock_data("GOOG", "data/empty.json"))
-#
-# print(six_worst_months())
