@@ -31,7 +31,8 @@ def read_stock_data(stock, stock_file_name):
     clear_globals()
 
     if stock == "":
-        raise ValueError
+        raise ValueError("Stock name is missing")
+
     try:
         with open(stock_file_name, "r") as file_reader:
             stock_file_content = file_reader.read()
@@ -131,3 +132,5 @@ def six_best_months():
     global final_list, six_best_months_data_sorted
     six_best_months_data_sorted = sorted(final_list, reverse=True, key=itemgetter(1))
     return six_best_months_data_sorted[0:6]
+
+#print(read_stock_data("","data/GOOG.json"))
