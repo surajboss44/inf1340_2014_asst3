@@ -52,5 +52,16 @@ def test_no_stock():
 
 
 def test_too_few_months():
+    """
+    Test the required minimum number of months in the date. Must be at least 6 months.
+    """
     with pytest.raises(ValueError):
         read_stock_data("GOOG","data/toofew.json")
+
+
+def test_invalid_date_format():
+    """
+    Invalid Date format in the json file.
+    """
+    with pytest.raises(ValueError):
+        read_stock_data("GOOG", "data/invaliddate.json")

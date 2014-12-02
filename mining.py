@@ -64,8 +64,14 @@ def calculate_stock_price(input_stock_records):
     global final_list
     stock_year_list_with_temp = []
 
-    for each_stock_record in input_stock_records:  # Create list of all date items from file
-        stock_year_month = each_stock_record["Date"][0:7]
+    for each_stock_record in input_stock_records:
+        try:
+            date = datetime.datetime.strptime(each_stock_record["Date"], "%Y-%m-%d")
+
+        except ValueError:
+            raise ValueError('Invalid date format')
+
+        stock_year_month = each_stock_record["Date"][0:7]  # Create list of all date items from file
         stock_year_list_with_temp.append(stock_year_month)
 
     for temp_item in stock_year_list_with_temp:
@@ -107,7 +113,7 @@ def calculate_average_for_a_month(input_stock_records, month_val):
 
 def six_worst_months():
     """
-    Sorts and slice predefined global list 'final_list' to output six worst months
+    Sorts and slices predefined global list 'final_list' to output six worst months
 
     :return: list of tuples containing year, month, and 6 worst monthly average stock price
     """
@@ -118,7 +124,7 @@ def six_worst_months():
 
 def six_best_months():
     """
-    Sorts and slice predefined global list 'final_list' to output six best months
+    Sorts and slices predefined global list 'final_list' to output six best months
 
     :return: list of tuples containing year, month, and 6 best monthly average stock price
     """
